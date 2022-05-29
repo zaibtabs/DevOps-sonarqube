@@ -120,17 +120,17 @@ Go to this ulr and you can see the requirements: https://docs.sonarqube.org/late
   WantedBy=multi-user.target
   EOL
   ```
-Important:  in the above file we are using sonarqube as a directory
+1. Important:  in the above file we are using sonarqube as a directory
    ---sh
    mv sonarqube-8.9.8.54436/ sonarqube
    ---
-1. Add sonar user and grant ownership to /opt/sonarqube directory 
+2. Add sonar user and grant ownership to /opt/sonarqube directory 
   ```sh 
   useradd -d /opt/sonarqube sonar
   chown -R sonar:sonar
   ```
 
-1. Reload the demon and start sonarqube service 
+3. Reload the demon and start sonarqube service 
   ```sh 
   systemctl daemon-reload 
   systemctl start sonarqube.service 
