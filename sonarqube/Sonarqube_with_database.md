@@ -53,11 +53,9 @@ sudo systemctl start postgresql-14
   ```
 `check point`: You should see postgres is running on 5432
 
-
-
 yum install net-tools
 
-`Source: https://docs.sonarqube.org/latest/requirements/requirements/`
+Go to this ulr and you can see the requirements: https://docs.sonarqube.org/latest/requirements/requirements/`
 
 1. Added below entries in `/etc/sysctl.conf`
   ```sh 
@@ -92,10 +90,10 @@ yum install net-tools
   sonar.jdbc.username=<sonar_database_username>
   sonar.jdbc.password=<sonar_database_password>
 
-  #sonar.jdbc.username=sonar
-  #sonar.jdbc.password=admin
-  #sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube
-  #sonar.search.javaOpts=-Xmx512m -Xms512m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError
+  #sonar.jdbc.username=sonar  # uncomment
+  #sonar.jdbc.password=admin  #uncomment
+  #sonar.jdbc.url=jdbc:postgresql://localhost/sonarqube   #uncomment and update as seen here
+  #sonar.search.javaOpts=-Xmx512m -Xms512m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError  #uncommet this line
   ``
 
 1. Create a `/etc/systemd/system/sonarqube.service` file start sonarqube service at the boot time 
@@ -123,8 +121,9 @@ yum install net-tools
   EOL
   ```
 Important:  in the above file we are using sonarqube as a directory
-mv sonarqube-8.9.8.54436/ sonarqube
-
+   ---sh
+   mv sonarqube-8.9.8.54436/ sonarqube
+   ---
 1. Add sonar user and grant ownership to /opt/sonarqube directory 
   ```sh 
   useradd -d /opt/sonarqube sonar
