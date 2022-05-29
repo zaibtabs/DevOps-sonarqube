@@ -3,22 +3,32 @@
 
 SonarQube is an open-source static testing analysis software, it is used by developers to manage source code quality and consistency.
 ## 🧰 Prerequisites
-1. Need an EC2 instance (min t2.small)
+1. Centos 7.0 on VMDesktop
 2. Install Java-11
   ```sh 
-   apt-get update   
-   apt  list | grep openjdk-11  
-   apt-get install openjdk-11-jdk -y   
+    yum get update   
+     list | grep openjdk-11  
+   $ sudo update-alternatives --config 'java'
+   $ sudo yum install java-11-openjdk
+   
+   $ java -version
+
+openjdk version "11.0.14" 2022-01-18 LTS LTS
+OpenJDK Runtime Environment 18.9 (build 11.0.14+9-LTS)
+OpenJDK 64-Bit Server VM 18.9 (build 11.0.14+9-LTS, mixed mode, sharing)
+
+$ sudo update-alternatives --config 'java'
    ```
 
 ## Install & Setup Postgres Database for SonarQube
-`Source: https://www.postgresql.org/download/linux/ubuntu/`  
+`Source: (https://www.postgresql.org/download/linux/redhat/)
 1. Install Postgres database   
   ```sh 
-  sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'  
-  wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-  sudo apt-get update
-  sudo apt-get -y install postgresql
+  sudo yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm
+sudo yum install -y postgresql14-server
+sudo /usr/pgsql-14/bin/postgresql-14-setup initdb
+sudo systemctl enable postgresql-14
+sudo systemctl start postgresql-14
   ```
 
 1. Set a password and connect to database (setting password as "admin" password)
@@ -38,14 +48,14 @@ SonarQube is an open-source static testing analysis software, it is used by deve
 
 1. Restart postgres database to take latest changes effect 
   ```sh 
-  systemctl restart postgresql 
-  systemctl status postgresql
+  systemctl restart  postgresql-14
+  systemctl status  postgresql-14
   ```
 `check point`: You should see postgres is running on 5432
 
 
 
-apt install net-tools
+yum install net-tools
 
 `Source: https://docs.sonarqube.org/latest/requirements/requirements/`
 
@@ -72,7 +82,8 @@ apt install net-tools
 
 1. Download [soarnqube](https://www.sonarqube.org/downloads/) and extract it.   
   ```sh 
-  wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.2.46101.zip
+  cd /opt
+  wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-8.9.8.54436.zip
   unzip sonarqube-8.9.2.46101.zip
   ```
 
@@ -111,6 +122,8 @@ apt install net-tools
   WantedBy=multi-user.target
   EOL
   ```
+Important:  in the above file we are using sonarqube as a directory
+mv sonarqube-8.9.8.54436/ sonarqube
 
 1. Add sonar user and grant ownership to /opt/sonarqube directory 
   ```sh 
@@ -139,10 +152,10 @@ apt install net-tools
 
    
 ## 🔗 My Profile
-[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://www.udemy.com/user/ar-shankar/)  
-[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/ravdsun/)
+
+[![linkedin] (https://www.linkedin.com/in/salmansayeed/)
 
 
   ### 💡 Help/Suggestions or 🐛 Bugs
 
-Thank you for your interest in contributing to our project. Whether it is a bug report, new feature, correction, or additional documentation or solutions, we greatly value feedback and contributions from our community. [Start here](/issues)   
+Thank you for your interest in contributing to our project. Whether it is a bug report, new feature, correction, or additional documentation or solutions, we greatly value feedback and contributions from our community.
