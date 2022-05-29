@@ -31,13 +31,13 @@ sudo systemctl enable postgresql-14
 sudo systemctl start postgresql-14
   ```
 
-1. Set a password and connect to database (setting password as "admin" password)
+2. Set a password and connect to database (setting password as "admin" password)
   ```sh 
   sudo passwd postgres
   su - postgres
   ```
 
-1. Create a database user and database for sonarque 
+3. Create a database user and database for sonarque 
   ```sh 
   createuser sonar
   psql
@@ -46,7 +46,7 @@ sudo systemctl start postgresql-14
   GRANT ALL PRIVILEGES ON DATABASE sonarqube to sonar;
   ``` 
 
-1. Restart postgres database to take latest changes effect 
+4. Restart postgres database to take latest changes effect 
   ```sh 
   systemctl restart  postgresql-14
   systemctl status  postgresql-14
@@ -57,20 +57,20 @@ yum install net-tools
 
 Go to this ulr and you can see the requirements: https://docs.sonarqube.org/latest/requirements/requirements/`
 
-1. Added below entries in `/etc/sysctl.conf`
+5. Added below entries in `/etc/sysctl.conf`
   ```sh 
   vm.max_map_count=524288
   fs.file-max=131072
   ulimit -n 131072
   ulimit -u 8192
   ```
-1. Add below entries in `/etc/security/limits.conf`
+6. Add below entries in `/etc/security/limits.conf`
   ```sh 
   sonarqube   -   nofile   131072
   sonarqube   -   nproc    8192
   ```
 
-1. reboot the server 
+7. reboot the server 
   ```sh 
   init 6
   ```
@@ -85,7 +85,7 @@ Go to this ulr and you can see the requirements: https://docs.sonarqube.org/late
   unzip sonarqube-8.9.2.46101.zip
   ```
 
-1. Update sonar.properties with below information 
+2. Update sonar.properties with below information 
   ```sh
   sonar.jdbc.username=<sonar_database_username>
   sonar.jdbc.password=<sonar_database_password>
@@ -96,7 +96,7 @@ Go to this ulr and you can see the requirements: https://docs.sonarqube.org/late
   #sonar.search.javaOpts=-Xmx512m -Xms512m -XX:MaxDirectMemorySize=256m -XX:+HeapDumpOnOutOfMemoryError  #uncommet this line
   ``
 
-1. Create a `/etc/systemd/system/sonarqube.service` file start sonarqube service at the boot time 
+3. Create a `/etc/systemd/system/sonarqube.service` file start sonarqube service at the boot time 
   ```sh   
   cat >> /etc/systemd/system/sonarqube.service <<EOL
   [Unit]
@@ -120,17 +120,17 @@ Go to this ulr and you can see the requirements: https://docs.sonarqube.org/late
   WantedBy=multi-user.target
   EOL
   ```
-1. Important:  in the above file we are using sonarqube as a directory
+4. Important:  in the above file we are using sonarqube as a directory
    ---sh
    mv sonarqube-8.9.8.54436/ sonarqube
    ---
-2. Add sonar user and grant ownership to /opt/sonarqube directory 
+5. Add sonar user and grant ownership to /opt/sonarqube directory 
   ```sh 
   useradd -d /opt/sonarqube sonar
   chown -R sonar:sonar
   ```
 
-3. Reload the demon and start sonarqube service 
+6. Reload the demon and start sonarqube service 
   ```sh 
   systemctl daemon-reload 
   systemctl start sonarqube.service 
