@@ -152,8 +152,7 @@ Important:  in the above file we are using sonarqube as a directory
    
 ## 🔗 My Profile
 
-[![linkedin] (https://www.linkedin.com/in/salmansayeed/)
-
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/salmansayeed/)
 
   ### 💡 Help/Suggestions or 🐛 Bugs
 
